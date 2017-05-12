@@ -7,6 +7,7 @@
           <element id="module-output" name="pandawork-start" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.30" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.4" />
         </element>
       </element>
