@@ -4,13 +4,5 @@
 # Log file
 *.log
 
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
 # target directory
 /target/*
