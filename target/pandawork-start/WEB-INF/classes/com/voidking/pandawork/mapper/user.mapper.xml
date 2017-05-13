@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voidking.pandawork.mapper.UserMapper">
+
+    <insert id = "newUser" parameterType="com.voidking.pandawork.entity.User">
+        insert into t_user(username, password)
+        values(#{username}, #{password})
+    </insert>
+
+    <delete id="delUser" parameterType="int">
+        delete from t_user where id=#{userId}
+    </delete>
+
+    <update id="updateUser" parameterType="com.voidking.pandawork.entity.User">
+        update t_user set username=#{username},password=#{password} where id=#{id}
+    </update>
+
+    <select id="queryByUserId" parameterType="int" resultType="com.voidking.pandawork.entity.User">
+        select
+        tu.id as id,
+        tu.username as username,
+        tu.password as password
+        from t_user tu
+        where id=#{userId}
+    </select>
+
+    <select id="listAll" resultType="com.voidking.pandawork.entity.User">
+        select
+        tu.id as id,
+        tu.username as username,
+        tu.password as password
+        from t_user tu
+    </select>
+
+    <select id="listByPage" resultType="com.voidking.pandawork.entity.User">
+        select
+        tu.id as id,
+        tu.username as username,
+        tu.password as password
+        from t_user tu
+        limit #{pageCurrent},#{pageSize};
+    </select>
+
+    <select id="countUser" resultType="int">
+        SELECT COUNT(*)
+        FROM t_user
+    </select>
+</mapper>

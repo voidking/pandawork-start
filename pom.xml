@@ -7,11 +7,20 @@
   <version>1.0-SNAPSHOT</version>
   <name>pandawork-start Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <junit.version>3.8.1</junit.version>
+    <mysqlconnector.version>5.1.30</mysqlconnector.version>
+    <mybatis.version>3.4.4</mybatis.version>
+    <springframework.version>4.3.8.RELEASE</springframework.version>
+  </properties>
+
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -19,14 +28,72 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.30</version>
+      <version>${mysqlconnector.version}</version>
     </dependency>
 
+    <!--mybatis库-->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.4.4</version>
+      <version>${mybatis.version}</version>
     </dependency>
+
+    <!-- Spring 核心库 -->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-core</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-core</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-beans</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-orm</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-aop</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-tx</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
+    <!-- Spring MVC 库 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>org.springframework</groupId>-->
+      <!--<artifactId>spring-web</artifactId>-->
+      <!--<version>${springframework.version}</version>-->
+    <!--</dependency>-->
+
   </dependencies>
 
   <build>
