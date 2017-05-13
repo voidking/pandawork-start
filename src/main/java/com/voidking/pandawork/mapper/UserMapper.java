@@ -1,6 +1,7 @@
 package com.voidking.pandawork.mapper;
 
 import com.voidking.pandawork.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,15 +11,15 @@ import java.util.List;
 public interface UserMapper {
     public void newUser(User user);
 
-    public void delUser(int userId);
+    public void delUser(@Param("userId") int userId);
 
     public void updateUser(User user);
 
-    public User queryByUserId(int userId);
+    public User queryByUserId(@Param("userId") int userId);
 
     public List<User> listAll();
 
-    public List<User> listByPage(int pageNum, int pageSize);
+    public List<User> listByPage(@Param("pageCurrent") int pageCurrent,@Param("pageSize") int pageSize);
 
     public int countUser();
 

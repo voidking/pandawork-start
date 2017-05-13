@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void delUser(int userId) {
-        userMapper.delUser(1);
+        userMapper.delUser(userId);
     }
 
     public void updateUser(User user) {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> listByPage(int pageNum, int pageSize) {
-        List<User> userList = userMapper.listByPage(pageNum,pageSize);
+        List<User> userList = userMapper.listByPage((pageNum-1)*pageSize,pageSize);
         return userList;
     }
 

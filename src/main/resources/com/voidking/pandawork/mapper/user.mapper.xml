@@ -8,21 +8,21 @@
         values(#{username}, #{password})
     </insert>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delUser" parameterType="int">
         delete from t_user where id=#{userId}
     </delete>
 
-    <update id="update" parameterType="com.voidking.pandawork.entity.User">
+    <update id="updateUser" parameterType="com.voidking.pandawork.entity.User">
         update t_user set username=#{username},password=#{password} where id=#{id}
     </update>
 
     <select id="queryByUserId" parameterType="int" resultType="com.voidking.pandawork.entity.User">
-        select select
+        select
         tu.id as id,
         tu.username as username,
         tu.password as password
         from t_user tu
-        where id=#{id}
+        where id=#{userId}
     </select>
 
     <select id="listAll" resultType="com.voidking.pandawork.entity.User">
@@ -39,7 +39,7 @@
         tu.username as username,
         tu.password as password
         from t_user tu
-        limit (#{1}-1)*#{2},#{1};
+        limit #{pageCurrent},#{pageSize};
     </select>
 
     <select id="countUser" resultType="int">
