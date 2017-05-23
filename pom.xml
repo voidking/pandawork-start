@@ -13,6 +13,7 @@
     <mysqlconnector.version>5.1.30</mysqlconnector.version>
     <mybatis.version>3.4.4</mybatis.version>
     <springframework.version>4.3.8.RELEASE</springframework.version>
+    <freemarker.version>2.3.26-incubating</freemarker.version>
   </properties>
 
 
@@ -39,11 +40,11 @@
     </dependency>
 
     <!-- Spring 核心库 -->
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-core</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
@@ -51,35 +52,41 @@
       <version>${springframework.version}</version>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-core</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-beans</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-orm</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-aop</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-tx</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
 
     <!-- Spring MVC 库 -->
     <dependency>
@@ -88,11 +95,17 @@
       <version>${springframework.version}</version>
     </dependency>
 
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-web</artifactId>-->
-      <!--<version>${springframework.version}</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>${freemarker.version}</version>
+    </dependency>
 
   </dependencies>
 

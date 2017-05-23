@@ -1,6 +1,7 @@
 package com.voidking.pandawork.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -12,5 +13,11 @@ public class HelloWorld {
     @RequestMapping("/hello")
     public @ResponseBody String test() {
         return "hello, world! This com from spring!";
+    }
+
+    @RequestMapping("/hellotpl")
+    public String index(ModelMap modelMap){
+        modelMap.put("title","名称");
+        return "index";
     }
 }
