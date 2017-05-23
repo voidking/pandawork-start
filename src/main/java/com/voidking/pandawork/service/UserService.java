@@ -22,4 +22,6 @@ public interface UserService {
 
     public int countUser();
 
+    public User login(String username, String password);
+
 }

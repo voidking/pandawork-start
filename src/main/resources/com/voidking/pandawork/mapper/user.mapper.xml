@@ -46,4 +46,13 @@
         SELECT COUNT(*)
         FROM t_user
     </select>
+
+    <select id="login" resultType="com.voidking.pandawork.entity.User">
+        select
+        tu.id as id,
+        tu.username as username,
+        tu.password as password
+        from t_user tu
+        where username=#{username} and password=#{password}
+    </select>
 </mapper>

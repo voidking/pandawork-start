@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.countUser();
         return result;
     }
+
+    public User login(String username, String password) {
+        User user = userMapper.login(username, password);
+        return user;
+    }
 }

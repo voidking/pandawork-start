@@ -23,4 +23,5 @@ public interface UserMapper {
 
     public int countUser();
 
+    public User login(@Param("username") String username,@Param("password") String password);
 }

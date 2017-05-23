@@ -21,7 +21,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.3.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.8.RELEASE" />
-          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.23" />
+          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.26-incubating" />
         </element>
       </element>
       <element id="directory" name="META-INF">

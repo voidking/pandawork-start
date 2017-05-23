@@ -10,12 +10,14 @@
     <!-- 默认是/WEB-INF/applicationContext.xml -->
   </context-param>
 
+  <!--ContextLoaderListener指定了IOC容器初始化的方法-->
   <listener>
     <listener-class>
       org.springframework.web.context.ContextLoaderListener
     </listener-class>
   </listener>
 
+  <!--DispatcherServlet定义了mvc的相关内容，拦截所有/开头的请求-->
   <servlet>
     <servlet-name>SpringMVC</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -31,5 +33,14 @@
     <servlet-name>SpringMVC</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+
+  <!--设置代码中可获取web根目录，System.getProperty("pandaworkWeb.root")-->
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>pandaworkWeb.root</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
+  </listener>
 
 </web-app>
