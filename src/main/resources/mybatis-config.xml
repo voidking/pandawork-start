@@ -16,5 +16,6 @@
     </environments>
     <mappers>
         <mapper resource="com/voidking/pandawork/mapper/user.mapper.xml"/>
+        <mapper resource="com/voidking/pandawork/mapper/admin.mapper.xml"/>
     </mappers>
 </configuration>

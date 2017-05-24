@@ -1,8 +1,11 @@
 package com.voidking.pandawork.controller.admin;
 
+import com.voidking.pandawork.entity.Admin;
 import com.voidking.pandawork.entity.User;
 import com.voidking.pandawork.json.JSONObject;
+import com.voidking.pandawork.service.AdminService;
 import com.voidking.pandawork.service.UserService;
+import com.voidking.pandawork.service.impl.AdminServiceImpl;
 import com.voidking.pandawork.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Created by voidking on 2017/5/13.
@@ -21,37 +25,9 @@ import java.io.PrintWriter;
 @Controller
 public class AdminController {
 
-    @RequestMapping(value = "/admin/reg", method = RequestMethod.GET)
-    public String toReg(ModelMap modelMap){
-        return "reg";
-    }
-
-    @RequestMapping(value = "/admin/reg", method = RequestMethod.POST)
-    public void reg(@RequestParam(value = "username") String username,@RequestParam(value="password") String password,
-                    @RequestParam(value = "password2") String password2,HttpServletRequest request, HttpServletResponse response) throws Exception{
-        JSONObject jsonObj = null;
-
-        UserService userService = new UserServiceImpl();
-        if("".equals(username) || "".equals(password)){
-            jsonObj = new JSONObject("{'code':'1','ext':'用户名和密码不能为空'}");
-        }else if(!password.equals(password2)){
-            jsonObj = new JSONObject("{'code':'2','ext':'两次输入密码不一致'}");
-        }else {
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
-            userService.newUser(user);
-            jsonObj = new JSONObject("{'code':'0','ext':'注册成功'}");
-        }
-
-        response.setCharacterEncoding("utf8");
-        PrintWriter pw = response.getWriter();
-        pw.println(jsonObj);
-    }
-
     @RequestMapping(value="/admin/login",method = RequestMethod.GET)
     public String toLogin(ModelMap modelMap){
-        return "login";
+        return "admin/login";
     }
 
     @RequestMapping(value="/admin/login",method = RequestMethod.POST)
@@ -59,11 +35,11 @@ public class AdminController {
                         HttpServletRequest request, HttpServletResponse response) throws Exception{
         JSONObject jsonObj = null;
 
-        UserService userService = new UserServiceImpl();
-        User user = userService.login(username, password);
-        if(user != null){
+        AdminService adminService = new AdminServiceImpl();
+        Admin admin = adminService.login(username, password);
+        if(admin != null){
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            session.setAttribute("admin", admin);
             if (session.isNew()) {
                 //response.getWriter().print("session创建成功，session的id是："+sessionId);
             }else {
@@ -85,7 +61,7 @@ public class AdminController {
         JSONObject jsonObj = null;
 
         HttpSession session = request.getSession();
-        session.setAttribute("user", null);
+        session.setAttribute("admin", null);
 
         jsonObj = new JSONObject("{'code':'0','ext':'退出成功'}");
 
@@ -94,17 +70,48 @@ public class AdminController {
         pw.println(jsonObj);
     }
 
-    @RequestMapping(value="/admin/success", method = RequestMethod.GET)
-    public String toSuccess(ModelMap modelMap,HttpServletRequest request, HttpServletResponse response) throws Exception{
+    @RequestMapping(value="/admin/manage", method = RequestMethod.GET)
+    public String toManage(ModelMap modelMap,HttpServletRequest request, HttpServletResponse response) throws Exception{
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        if(user == null){
+        Admin admin = (Admin)session.getAttribute("admin");
+        if(admin == null){
             //System.out.println("重定向");
-            response.sendRedirect(request.getContextPath() + "/user/login");
+            response.sendRedirect(request.getContextPath() + "/admin/login");
             return null;
         }
 
-        modelMap.put("username",user.getUsername());
-        return "user/success";
+        modelMap.put("username",admin.getUsername());
+        UserService userService = new UserServiceImpl();
+        List<User> userList = userService.listAll();
+        modelMap.put("userList",userList);
+        return "admin/manage";
+    }
+
+    @RequestMapping(value = "/admin/user/search", method = RequestMethod.POST)
+    public void getUserList(@RequestParam(value = "key") String key,
+                            HttpServletRequest request, HttpServletResponse response) throws Exception{
+        JSONObject jsonObj = null;
+        UserService userService = new UserServiceImpl();
+        List<User> userList = userService.listByKey(key);
+
+        jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+        jsonObj.put("userList", userList);
+
+        response.setCharacterEncoding("utf8");
+        PrintWriter pw = response.getWriter();
+        pw.println(jsonObj);
+    }
+
+    @RequestMapping(value = "/admin/user/del",method = RequestMethod.POST)
+    public void delUser(@RequestParam(value = "userId") int userId,
+                        HttpServletRequest request, HttpServletResponse response) throws Exception{
+        JSONObject jsonObj = null;
+        UserService userService = new UserServiceImpl();
+        userService.delUser(userId);
+        jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+
+        response.setCharacterEncoding("utf8");
+        PrintWriter pw = response.getWriter();
+        pw.println(jsonObj);
     }
 }

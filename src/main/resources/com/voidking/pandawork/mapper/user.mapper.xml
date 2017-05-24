@@ -42,6 +42,16 @@
         limit #{pageCurrent},#{pageSize};
     </select>
 
+    <select id="listByKey" resultType="com.voidking.pandawork.entity.User">
+        select
+        tu.id as id,
+        tu.username as username,
+        tu.password as password
+        from t_user tu
+        where username like concat(concat('%',#{key}),'%')
+        or password like concat(concat('%',#{key}),'%')
+    </select>
+
     <select id="countUser" resultType="int">
         SELECT COUNT(*)
         FROM t_user

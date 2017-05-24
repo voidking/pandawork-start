@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
+    public List<User> listByKey(String key) {
+        List<User> userList = userMapper.listByKey(key);
+        return userList;
+    }
+
     public int countUser() {
         int result = userMapper.countUser();
         return result;

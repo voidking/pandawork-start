@@ -8,14 +8,14 @@ $(function(){
         };
         var basePath = $('#basePath').val();
         $.ajax({
-            url: basePath + '/Admin/Login',
+            url: basePath + '/admin/login',
             type: 'POST',
             dataType: 'json',
             data: data,
             success: function(data){
                 console.log(data);
                 if(data.code == 0){
-                    window.location.href = basePath + '/Manage';
+                    window.location.href = basePath + '/admin/manage';
                 }else{
                     layer.msg(data.ext);
                 }

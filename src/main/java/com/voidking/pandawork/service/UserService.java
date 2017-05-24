@@ -20,6 +20,8 @@ public interface UserService {
 
     public List<User> listByPage(int pageNum, int pageSize);
 
+    public List<User> listByKey(String key);
+
     public int countUser();
 
     public User login(String username, String password);

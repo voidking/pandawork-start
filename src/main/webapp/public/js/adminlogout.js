@@ -2,14 +2,14 @@ $(function(){
     function logout(){
         var basePath = $('#basePath').val();
         $.ajax({
-            url: basePath + '/Admin/Logout',
+            url: basePath + '/admin/logout',
             type: 'POST',
             dataType: 'json',
             data: {},
             success: function(data){
                 console.log(data);
                 if(data.code == 0){
-                    window.location.href = basePath + '/Admin/LoginPage';
+                    window.location.href = basePath + '/admin/login';
                 }
             },
             error: function(xhr){

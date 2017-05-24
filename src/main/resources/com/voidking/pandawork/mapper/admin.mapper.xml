@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voidking.pandawork.mapper.AdminMapper">
+
+    <insert id = "newUser" parameterType="com.voidking.pandawork.entity.Admin">
+        insert into t_admin(username, password)
+        values(#{username}, #{password})
+    </insert>
+
+    <delete id="delAdmin" parameterType="int">
+        delete from t_admin where id=#{userId}
+    </delete>
+
+    <update id="updateAdmin" parameterType="com.voidking.pandawork.entity.Admin">
+        update t_admin set username=#{username},password=#{password} where id=#{id}
+    </update>
+
+    <select id="queryByAdminId" parameterType="int" resultType="com.voidking.pandawork.entity.Admin">
+        select
+        ta.id as id,
+        ta.username as username,
+        ta.password as password
+        from t_admin ta
+        where id=#{adminId}
+    </select>
+
+    <select id="listAll" resultType="com.voidking.pandawork.entity.Admin">
+        select
+        ta.id as id,
+        ta.username as username,
+        ta.password as password
+        from t_admin ta
+    </select>
+
+    <select id="listByPage" resultType="com.voidking.pandawork.entity.Admin">
+        select
+        ta.id as id,
+        ta.username as username,
+        ta.password as password
+        from t_admin ta
+        limit #{pageCurrent},#{pageSize};
+    </select>
+
+    <select id="countAdmin" resultType="int">
+        SELECT COUNT(*)
+        FROM t_admin
+    </select>
+
+    <select id="login" resultType="com.voidking.pandawork.entity.Admin">
+        select
+        ta.id as id,
+        ta.username as username,
+        ta.password as password
+        from t_admin ta
+        where username=#{username} and password=#{password}
+    </select>
+</mapper>

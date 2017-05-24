@@ -54,6 +54,13 @@ public class UserServiceTest extends TestCase {
         }
     }
 
+    public void testListByKey() throws Exception {
+        List<User> userList = userService.listByKey("voi");
+        for(User user: userList){
+            System.out.print(user.getId()+"\t");
+        }
+    }
+
     public void testCountUser() throws Exception {
         int count = userService.countUser();
         System.out.println(count);

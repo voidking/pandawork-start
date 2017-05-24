@@ -21,6 +21,8 @@ public interface UserMapper {
 
     public List<User> listByPage(@Param("pageCurrent") int pageCurrent,@Param("pageSize") int pageSize);
 
+    public List<User> listByKey(@Param("key") String key);
+
     public int countUser();
 
     public User login(@Param("username") String username,@Param("password") String password);
