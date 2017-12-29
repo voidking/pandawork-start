@@ -8,11 +8,11 @@ import java.util.List;
  * Created by voidking on 2017/12/28.
  */
 public interface LineService {
-    public void newLine(Line line);
+    public int newLine(Line line);
 
-    public void delLine(int lineId);
+    public int delLine(int lineId);
 
-    public void updateLine(Line line);
+    public int updateLine(Line line);
 
     public Line queryByLineId(int lineId);
 

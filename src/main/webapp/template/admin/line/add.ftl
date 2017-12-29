@@ -44,47 +44,33 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a href="/admin/user/list">用户管理</a></li>
-                <li class="active"><a href="/admin/line/list">管理路线</a></li>
-                <li><a href="/admin/line/add">添加路线</a></li>
-
+                <li><a href="/admin/line/list">管理路线</a></li>
+                <li class="active"><a href="/admin/line/add">添加路线</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">路线管理</h1>
-            <div class="search input-group">
-                <input type="text" id="key" class="form-control" placeholder="输入路线或首尾站名">
-                <span class="input-group-btn">
-            <button class="btn btn-default" type="button" id="search">搜索</button>
-          </span>
+            <h1 class="page-header">添加路线</h1>
+            <div class="info">
+                <p>
+                    提示：路线简称、路线全称、首站、尾站的数据，请和百度地图保持一致，否则无法进行路线查询。
+                </p>
             </div>
-
-            <h2 class="sub-header">路线列表</h2>
             <div class="table-responsive">
-                <table class="user-table table table-striped">
-                    <thead>
-                    <tr>
-                        <th>路线简称</th>
-                        <th>路线全称</th>
-                        <th>首站</th>
-                        <th>尾站</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody class="line-tbody">
-                    <#list lineList as line>
-                    <tr data-id="${line.id}">
-                        <td class="busName">${line.busName}</td>
-                        <td class="fullName">${line.fullName}</td>
-                        <td class="firstStop">${line.firstStop?default('')}</td>
-                        <td class="lastStop">${line.lastStop?default('')}</td>
-                        <td>
-                            <!-- <button class="edit btn btn-sm btn-info">修改</button> -->
-                            <button class="delete btn btn-sm btn-danger">删除</button>
-                        </td>
-                    </tr>
-                    </#list>
-                    </tbody>
-                </table>
+                <form action="" class="line-form" role="form">
+                    <div class="form-group">
+                        <input type="text" id="busName" name="busName" class="form-control" placeholder="路线简称">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="fullName" name="fullName" class="form-control" placeholder="路线全称">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="firstStop" name="firstStop" class="form-control" placeholder="首站">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="lastStop" name="lastStop" class="form-control" placeholder="尾站">
+                    </div>
+                    <button type="submit" class="btn btn-default btn-primary">确认添加</button>
+                </form>
             </div>
         </div>
     </div>
@@ -120,76 +106,36 @@
 <script src="${basePath}/public/js/admin/adminlogout.js"></script>
 <script>
 $(function(){
-    $('.line-tbody').on('click','.edit',function(){
-        var index = layer.open({
-            type: 1,
-            title: '订单详情',
-            skin: 'layui-layer-rim', //加上边框
-            area: ['500px', '500px'], //宽高
-            content: $('.pane-hide').html()
-        });
-    });
-
-
-    $('.line-tbody').on('click','.delete',function(){
-        $tr = $(this).parents('tr');
-        var id = $tr.attr('data-id');
+    $('.line-form').submit(function(event) {
+        event.preventDefault();
         var data = {
-            lineId: id
-        };
-        var index = layer.confirm('确认删除？', {
-            btn: ['是的','取消'] //按钮
-        }, function(){
-            var basePath = $('#basePath').val();
-            $.ajax({
-                url: basePath + '/admin/line/del',
-                type: 'POST',
-                dataType: 'json',
-                data: data,
-                success: function(data){
-                    console.log(data);
-                    if(data.code == 0){
-                        layer.close(index);
-                        $tr.remove();
-                        layer.msg('删除成功！');
-                    }else{
-                        layer.msg(data.ext);
-                    }
-                },
-                error: function(xhr){
-                    console.log(data);
-                }
-            });
-        }, function(){
-
-        });
-    });
-
-    $('#search').click(function(event) {
+            busName: $('#busName').val(),
+            fullName: $('#fullName').val(),
+            firstStop: $('#firstStop').val(),
+            lastStop: $('#lastStop').val()
+        }
         var basePath = $('#basePath').val();
-        var key = $('#key').val();
         $.ajax({
-            url: basePath+'/admin/line/search',
+            url: basePath+'/admin/line/add',
             type: 'POST',
             dataType: 'json',
-            data: {key: key},
+            data: data,
             success: function(data){
                 console.log(data);
-                var html = template('line-template', data);
-                $('.line-tbody').html(html);
+                if(data.code == 0){
+                    layer.msg('添加成功');
+                    setTimeout(function(){
+                        window.location.href = basePath+'/Manage';
+                    },1500);
+                }else{
+                    layer.msg(data.ext);
+                }
             },
             error: function(xhr){
                 console.log(xhr);
             }
         });
-    });
 
-    $('#key').keypress(function(event) {
-        var key = event.which;
-        //console.log(key);
-        if(key == 13){
-            $('#search').trigger('click');
-        }
     });
 });
 </script>

@@ -19,18 +19,27 @@ public class LineServiceTest extends TestCase {
     }
 
     public void testNewLine() throws Exception {
-        Line line = new Line();
-        lineService.newLine(line);
+        Line line = new Line(0,"160","160路","净月潭","长春站",0);
+        int flag = lineService.newLine(line);
+        if(flag == 1){
+            System.out.println(line.getId());
+        }
     }
 
     public void testDelLine() throws Exception {
-        lineService.delLine(2);
+        int flag = lineService.delLine(2);
+        if(flag == 1){
+            System.out.println("删除成功");
+        }
     }
 
     public void testUpdateLine() throws Exception {
-        Line line = lineService.queryByLineId(1);
-        lineService.updateLine(line);
-
+        Line line = lineService.queryByLineId(2);
+        line.setDeleted(1);
+        int flag = lineService.updateLine(line);
+        if(flag == 1){
+            System.out.println("修改成功");
+        }
     }
 
     public void testQueryByLineId() throws Exception {
@@ -43,6 +52,16 @@ public class LineServiceTest extends TestCase {
         System.out.println(lineList.size());
     }
 
+    public void testListValid() throws Exception {
+        List<Line> lineList = lineService.listValid();
+        System.out.println(lineList.size());
+    }
+
+    public void testListDeleted() throws Exception{
+        List<Line> lineList = lineService.listDeleted();
+        System.out.println(lineList.size());
+    }
+
     public void testListByPage() throws Exception {
         List<Line> lineList = lineService.listByPage(2, 3);
         for(Line line: lineList){
@@ -51,7 +70,7 @@ public class LineServiceTest extends TestCase {
     }
 
     public void testListByKey() throws Exception {
-        List<Line> lineList = lineService.listByKey("voi");
+        List<Line> lineList = lineService.listByKey("16");
         for(Line line: lineList){
             System.out.print(line.getId()+"\t");
         }

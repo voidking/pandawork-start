@@ -34,7 +34,7 @@ public class AdminLineController {
             return null;
         }
 
-        modelMap.put("username",admin.getUsername());
+        modelMap.put("admin",admin);
         LineService lineService = new LineServiceImpl();
         List<Line> lineList = lineService.listAll();
         modelMap.put("lineList",lineList);
@@ -43,8 +43,8 @@ public class AdminLineController {
 
     @RequestMapping(value="/admin/line/search", method = RequestMethod.POST)
     public void lineSearch(@RequestParam(value = "key") String key,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws Exception{
+                           HttpServletRequest request,
+                           HttpServletResponse response) throws Exception{
         LineService lineService = new LineServiceImpl();
         List<Line> lineList = lineService.listByKey(key);
 
@@ -52,6 +52,40 @@ public class AdminLineController {
         jsonObj = new JSONObject("{'code':'0','ext':'success'}");
         jsonObj.put("lineList", lineList);
 
+        response.setCharacterEncoding("utf8");
+        PrintWriter pw = response.getWriter();
+        pw.println(jsonObj);
+    }
+
+    @RequestMapping(value="/admin/line/add", method = RequestMethod.GET)
+    public String toAdd(ModelMap modelMap,
+                        HttpServletRequest request,
+                        HttpServletResponse response) throws Exception{
+        HttpSession session = request.getSession();
+        Admin admin = (Admin)session.getAttribute("admin");
+        if(admin == null){
+            //System.out.println("重定向");
+            response.sendRedirect(request.getContextPath() + "/admin/login");
+            return null;
+        }
+
+        modelMap.put("admin",admin);
+        return "admin/line/add";
+    }
+
+    @RequestMapping(value="/admin/line/add", method = RequestMethod.POST)
+    public void add(@RequestParam(value = "busName") String busName,
+                    @RequestParam(value = "fullName") String fullName,
+                    @RequestParam(value = "firstStop") String firstStop,
+                    @RequestParam(value = "lastStop") String lastStop,
+                    HttpServletRequest request,
+                    HttpServletResponse response) throws Exception{
+        LineService lineService = new LineServiceImpl();
+        Line line = new Line(0,busName,fullName,firstStop,lastStop,0);
+        int id = lineService.newLine(line);
+
+        JSONObject jsonObj = null;
+        jsonObj = new JSONObject("{'code':'0','ext':'success'}");
         response.setCharacterEncoding("utf8");
         PrintWriter pw = response.getWriter();
         pw.println(jsonObj);

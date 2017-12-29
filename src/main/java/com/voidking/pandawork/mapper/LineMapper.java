@@ -9,11 +9,11 @@ import java.util.List;
  * Created by voidking on 2017/5/8.
  */
 public interface LineMapper {
-    public void newLine(Line line);
+    public int newLine(Line line);
 
-    public void delLine(@Param("lineId") int lineId);
+    public int delLine(@Param("lineId") int lineId);
 
-    public void updateLine(Line line);
+    public int updateLine(Line line);
 
     public Line queryByLineId(@Param("lineId") int lineId);
 

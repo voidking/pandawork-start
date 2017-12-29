@@ -22,16 +22,16 @@ public class LineServiceImpl implements LineService {
         lineMapper = session.getMapper(LineMapper.class);
     }
 
-    public void newLine(Line line) {
-        lineMapper.newLine(line);
+    public int newLine(Line line) {
+        return lineMapper.newLine(line);
     }
 
-    public void delLine(int lineId) {
-        lineMapper.delLine(lineId);
+    public int delLine(int lineId) {
+        return lineMapper.delLine(lineId);
     }
 
-    public void updateLine(Line line) {
-        lineMapper.updateLine(line);
+    public int updateLine(Line line) {
+        return lineMapper.updateLine(line);
     }
 
     public Line queryByLineId(int lineId) {
