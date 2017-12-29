@@ -10,6 +10,7 @@
 
     <link href="${basePath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${basePath}/public/css/admin/dashboard.css" rel="stylesheet">
+    <link href="${basePath}/public/css/admin/linelist.css" rel="stylesheet">
 </head>
 
 <body>
@@ -78,7 +79,7 @@
                         <td class="firstStop">${line.firstStop?default('')}</td>
                         <td class="lastStop">${line.lastStop?default('')}</td>
                         <td>
-                            <!-- <button class="edit btn btn-sm btn-info">修改</button> -->
+                            <button class="edit btn btn-sm btn-info">修改</button>
                             <button class="delete btn btn-sm btn-danger">删除</button>
                         </td>
                     </tr>
@@ -92,11 +93,36 @@
 
 <input id="basePath" type="hidden" value="${basePath}">
 <div class="pane-hide" style="display: none;">
-    <div class="pane" data-id="">
-        <p>路线简称：<span class="busName">160</span></p>
-        <p>路线全称：<span class="username">160路</span></p>
-        <p>首站：<span class="firstStop">净月潭</span></p>
-        <p>尾站：<span class="lastStop">长春站</span></p>
+    <div class="table-responsive">
+        <form action="" class="line-form form-horizontal" role="form">
+            <input id="line-id" type="hidden">
+            <div class="form-group">
+                <label for="bus-name" class="col-sm-2 control-label">路线简称</label>
+                <div class="col-sm-10">
+                    <input type="text" id="bus-name" name="busName" class="bus-name form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="full-name" class="col-sm-2 control-label">路线全称</label>
+                <div class="col-sm-10">
+                    <input type="text" id="full-name" name="fullName" class="full-name form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="first-stop" class="col-sm-2 control-label">首站</label>
+                <div class="col-sm-10">
+                    <input type="text" id="first-stop" name="firstStop" class="first-stop form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="last-stop" class="col-sm-2 control-label">尾站</label>
+                <div class="col-sm-10">
+                    <input type="text" id="last-stop" name="lastStop" class="last-stop form-control">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default btn-primary">确认</button>
+            <span class="cancel btn btn-default">取消</span>
+        </form>
     </div>
 </div>
 
@@ -108,7 +134,7 @@
         <td class="firstStop">{{line.firstStop}}</td>
         <td class="lastStop">{{line.lastStop}}</td>
         <td>
-            <!-- <button class="edit btn btn-sm btn-info">修改</button> -->
+            <button class="edit btn btn-sm btn-info">修改</button>
             <button class="delete btn btn-sm btn-danger">删除</button>
         </td>
     </tr>
@@ -121,12 +147,26 @@
 <script>
 $(function(){
     $('.line-tbody').on('click','.edit',function(){
+        $tr = $(this).parents('tr');
+        var id = $tr.attr('data-id');
+        var busName = $tr.children('td:eq(0)').html();
+        var fullName = $tr.children('td:eq(1)').html();
+        var firstStop = $tr.children('td:eq(2)').html();
+        var lastStop = $tr.children('td:eq(3)').html();
+        $('#line-id').val(id);
+        $('#bus-name').val(busName);
+        $('#full-name').val(fullName);
+        $('#first-stop').val(firstStop);
+        $('#last-stop').val(lastStop);
         var index = layer.open({
             type: 1,
-            title: '订单详情',
+            title: '修改路线',
             skin: 'layui-layer-rim', //加上边框
-            area: ['500px', '500px'], //宽高
-            content: $('.pane-hide').html()
+            area: ['600px', '305px'], //宽高
+            content: $('.pane-hide')
+        });
+        $('.cancel').unbind().click(function(){
+            layer.close(index);
         });
     });
 
@@ -135,7 +175,7 @@ $(function(){
         $tr = $(this).parents('tr');
         var id = $tr.attr('data-id');
         var data = {
-            lineId: id
+            id: id
         };
         var index = layer.confirm('确认删除？', {
             btn: ['是的','取消'] //按钮
@@ -190,6 +230,39 @@ $(function(){
         if(key == 13){
             $('#search').trigger('click');
         }
+    });
+
+    $('.line-form').submit(function(event) {
+        event.preventDefault();
+        var data = {
+            id: $('#line-id').val(),
+            busName: $('#bus-name').val(),
+            fullName: $('#full-name').val(),
+            firstStop: $('#first-stop').val(),
+            lastStop: $('#last-stop').val()
+        }
+        var basePath = $('#basePath').val();
+        $.ajax({
+            url: basePath+'/admin/line/update',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function(data){
+                console.log(data);
+                if(data.code == 0){
+                    layer.msg('修改成功');
+                    setTimeout(function(){
+                        window.location.href = basePath+'/admin/line/list';
+                    },1500);
+                }else{
+                    layer.msg(data.ext);
+                }
+            },
+            error: function(xhr){
+                console.log(xhr);
+            }
+        });
+
     });
 });
 </script>

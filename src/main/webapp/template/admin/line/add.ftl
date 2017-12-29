@@ -125,7 +125,7 @@ $(function(){
                 if(data.code == 0){
                     layer.msg('添加成功');
                     setTimeout(function(){
-                        window.location.href = basePath+'/Manage';
+                        window.location.href = basePath+'/admin/line/list';
                     },1500);
                 }else{
                     layer.msg(data.ext);

@@ -25,4 +25,12 @@ $(function(){
             }
         });
     });
+
+    $('#password').keypress(function(event) {
+        var key = event.which;
+        //console.log(key);
+        if(key == 13){
+            $('#confirm').trigger('click');
+        }
+    });
 });

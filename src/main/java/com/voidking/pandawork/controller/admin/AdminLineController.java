@@ -36,7 +36,7 @@ public class AdminLineController {
 
         modelMap.put("admin",admin);
         LineService lineService = new LineServiceImpl();
-        List<Line> lineList = lineService.listAll();
+        List<Line> lineList = lineService.listValid();
         modelMap.put("lineList",lineList);
         return "admin/line/list";
     }
@@ -82,13 +82,19 @@ public class AdminLineController {
                     HttpServletResponse response) throws Exception{
         LineService lineService = new LineServiceImpl();
         Line line = new Line(0,busName,fullName,firstStop,lastStop,0);
-        int id = lineService.newLine(line);
-
+        int flag = lineService.newLine(line);
         JSONObject jsonObj = null;
-        jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+        if(flag == 1){
+            jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+            jsonObj.put("id",line.getId());
+        }else{
+            jsonObj = new JSONObject("{'code':'-1','ext':'fail'}");
+        }
         response.setCharacterEncoding("utf8");
         PrintWriter pw = response.getWriter();
         pw.println(jsonObj);
+
+
     }
 
     @RequestMapping(value="/admin/line/del", method = RequestMethod.POST)
@@ -96,12 +102,43 @@ public class AdminLineController {
                            HttpServletRequest request,
                            HttpServletResponse response) throws Exception{
         LineService lineService = new LineServiceImpl();
-        lineService.delLine(id);
+        int flag = lineService.delLine(id);
         JSONObject jsonObj = null;
-        jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+
+        if(flag == 1){
+            jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+        }else{
+            jsonObj = new JSONObject("{'code':'-1','ext':'fail'}");
+        }
+
         response.setCharacterEncoding("utf8");
         PrintWriter pw = response.getWriter();
         pw.println(jsonObj);
+    }
+
+    @RequestMapping(value="/admin/line/update", method = RequestMethod.POST)
+    public void update(@RequestParam(value = "id") int id,
+                    @RequestParam(value = "busName") String busName,
+                    @RequestParam(value = "fullName") String fullName,
+                    @RequestParam(value = "firstStop") String firstStop,
+                    @RequestParam(value = "lastStop") String lastStop,
+                    HttpServletRequest request,
+                    HttpServletResponse response) throws Exception{
+        LineService lineService = new LineServiceImpl();
+        Line line = new Line(id,busName,fullName,firstStop,lastStop,0);
+        int flag = lineService.updateLine(line);
+        JSONObject jsonObj = null;
+        if(flag == 1){
+            jsonObj = new JSONObject("{'code':'0','ext':'success'}");
+            jsonObj.put("id",line.getId());
+        }else{
+            jsonObj = new JSONObject("{'code':'-1','ext':'fail'}");
+        }
+        response.setCharacterEncoding("utf8");
+        PrintWriter pw = response.getWriter();
+        pw.println(jsonObj);
+
+
     }
 
 }
