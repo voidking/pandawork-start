@@ -15,7 +15,7 @@ $(function(){
             success: function(data){
                 console.log(data);
                 if(data.code == 0){
-                    window.location.href = basePath + '/admin/manage';
+                    window.location.href = basePath + '/admin/user/list';
                 }else{
                     layer.msg(data.ext);
                 }

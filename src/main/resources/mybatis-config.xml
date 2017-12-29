@@ -8,7 +8,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/pandawork"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/pandawork?useUnicode=true&amp;characterEncoding=utf8"/>
                 <property name="username" value="root"/>
                 <property name="password" value=""/>
             </dataSource>
@@ -17,5 +17,6 @@
     <mappers>
         <mapper resource="com/voidking/pandawork/mapper/user.mapper.xml"/>
         <mapper resource="com/voidking/pandawork/mapper/admin.mapper.xml"/>
+        <mapper resource="com/voidking/pandawork/mapper/line.mapper.xml"/>
     </mappers>
 </configuration>

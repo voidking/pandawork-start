@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>后台管理-用户管理</title>
+  <title>后台管理</title>
     
   <link href="${basePath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${basePath}/public/css/dashboard.css" rel="stylesheet">
+  <link href="${basePath}/public/css/admin/dashboard.css" rel="stylesheet">
 </head>
 
 <body>
@@ -27,7 +27,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="javascript:void(0);">${username}</a></li>
+          <li><a href="javascript:void(0);">${admin.username}</a></li>
           <li><a href="javascript:void(0);" id="logout">退出</a></li>
         </ul>
         <!--
@@ -43,9 +43,9 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="#">用户管理</a></li>
-          <li><a href="#">订单管理</a></li>
-          <li><a href="#">销售统计</a></li>
+          <li class="active"><a href="/admin/user/list">用户管理</a></li>
+          <li><a href="/admin/line/list">管理路线</a></li>
+          <li><a href="/admin/line/add">添加路线</a></li>
 
         </ul>
       </div>
@@ -101,7 +101,7 @@
 <script src="${basePath}/public/lib/jquery/jquery.min.js"></script>
 <script src="${basePath}/public/lib/art-template/dist/template.js"></script> 
 <script src="${basePath}/public/lib/layer/src/layer.js"></script>
-<script src="${basePath}/public/js/adminlogout.js"></script>
+<script src="${basePath}/public/js/admin/adminlogout.js"></script>
 <script>
 $(function(){
   $('.user-table').on('click','.delete',function(){

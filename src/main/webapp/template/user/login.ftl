@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${basePath}/public/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${basePath}/public/lib/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="${basePath}/public/css/reg.css">
+    <link rel="stylesheet" href="${basePath}/public/css/user/reg.css">
     <title>用户登录</title>
 </head>
 <body>
@@ -20,6 +20,6 @@
 <input id="basePath" type="hidden" value="${basePath}">
 <script src="${basePath}/public/lib/jquery/jquery.min.js"></script>
 <script src="${basePath}/public/lib/layer/src/layer.js"></script>
-<script src="${basePath}/public/js/login.js"></script>
+<script src="${basePath}/public/js/user/login.js"></script>
 </body>
 </html>

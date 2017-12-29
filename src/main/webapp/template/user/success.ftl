@@ -12,7 +12,7 @@
     <title>登录成功</title>
 
     <link href="${basePath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${basePath}/public/css/justified-nav.css" rel="stylesheet">
+    <link href="${basePath}/public/css/user/justified-nav.css" rel="stylesheet">
 
 </head>
 

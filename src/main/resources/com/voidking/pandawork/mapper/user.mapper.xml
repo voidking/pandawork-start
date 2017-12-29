@@ -13,14 +13,16 @@
     </delete>
 
     <update id="updateUser" parameterType="com.voidking.pandawork.entity.User">
-        update t_user set username=#{username},password=#{password} where id=#{id}
+        update t_user set username=#{username},password=#{password},email=#{email},tel=#{tel} where id=#{id}
     </update>
 
     <select id="queryByUserId" parameterType="int" resultType="com.voidking.pandawork.entity.User">
         select
         tu.id as id,
         tu.username as username,
-        tu.password as password
+        tu.password as password,
+        tu.email as email,
+        tu.tel as tel
         from t_user tu
         where id=#{userId}
     </select>
@@ -29,7 +31,9 @@
         select
         tu.id as id,
         tu.username as username,
-        tu.password as password
+        tu.password as password,
+        tu.email as email,
+        tu.tel as tel
         from t_user tu
     </select>
 
@@ -37,7 +41,9 @@
         select
         tu.id as id,
         tu.username as username,
-        tu.password as password
+        tu.password as password,
+        tu.email as email,
+        tu.tel as tel
         from t_user tu
         limit #{pageCurrent},#{pageSize};
     </select>
@@ -46,7 +52,9 @@
         select
         tu.id as id,
         tu.username as username,
-        tu.password as password
+        tu.password as password,
+        tu.email as email,
+        tu.tel as tel
         from t_user tu
         where username like concat(concat('%',#{key}),'%')
         or password like concat(concat('%',#{key}),'%')
@@ -61,7 +69,9 @@
         select
         tu.id as id,
         tu.username as username,
-        tu.password as password
+        tu.password as password,
+        tu.email as email,
+        tu.tel as tel
         from t_user tu
         where username=#{username} and password=#{password}
     </select>

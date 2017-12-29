@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voidking.pandawork.mapper.LineMapper">
+
+    <insert id = "newLine" parameterType="com.voidking.pandawork.entity.Line">
+        insert into t_line(bus_name, full_name, first_stop, last_stop, deleted)
+        values(#{busName}, #{fullName},#{firstStop}, #{lastStop}, #{deleted})
+    </insert>
+
+    <delete id="delLine" parameterType="int">
+        update t_line
+        set deleted=1
+        where id=#{id}
+    </delete>
+
+    <update id="updateLine" parameterType="com.voidking.pandawork.entity.Line">
+        update t_line
+        set bus_name=#{busName},
+          full_name=#{fullName},
+          first_stop=#{firstStop},
+          last_stop=#{lastStop},
+          deleted=#{deleted}
+        where id=#{id}
+    </update>
+
+    <select id="queryByLineId" parameterType="int" resultType="com.voidking.pandawork.entity.Line">
+        select
+        tl.id as id,
+        tl.bus_name as busName,
+        tl.full_name as fullName,
+        tl.first_stop as firstStop,
+        tl.last_stop as lastStop,
+        tl.deleted as deleted
+        from t_line tl
+        where id=#{lineId}
+    </select>
+
+    <select id="listAll" resultType="com.voidking.pandawork.entity.Line">
+        select
+        tl.id as id,
+        tl.bus_name as busName,
+        tl.full_name as fullName,
+        tl.first_stop as firstStop,
+        tl.last_stop as lastStop,
+        tl.deleted as deleted
+        from t_line tl
+    </select>
+
+    <select id="listValid" resultType="com.voidking.pandawork.entity.Line">
+        select
+        tl.id as id,
+        tl.bus_name as busName,
+        tl.full_name as fullName,
+        tl.first_stop as firstStop,
+        tl.last_stop as lastStop,
+        tl.deleted as deleted
+        from t_line tl
+        where deleted=0
+    </select>
+
+    <select id="listDeleted" resultType="com.voidking.pandawork.entity.Line">
+        select
+        tl.id as id,
+        tl.bus_name as busName,
+        tl.full_name as fullName,
+        tl.first_stop as firstStop,
+        tl.last_stop as lastStop,
+        tl.deleted as deleted
+        from t_line tl
+        where deleted=1
+    </select>
+
+    <select id="listByPage" resultType="com.voidking.pandawork.entity.Line">
+        select
+        tl.id as id,
+        tl.bus_name as busName,
+        tl.full_name as fullName,
+        tl.first_stop as firstStop,
+        tl.last_stop as lastStop,
+        tl.deleted as deleted
+        from t_line tl
+        where deleted=0
+        limit #{pageCurrent},#{pageSize};
+    </select>
+
+    <!--<select id="listByKey" resultType="com.voidking.pandawork.entity.Line">-->
+        <!--select-->
+        <!--tl.id as id,-->
+        <!--tl.bus_name as busName,-->
+        <!--tl.full_name as fullName,-->
+        <!--tl.first_stop as firstStop,-->
+        <!--tl.last_stop as lastStop,-->
+        <!--tl.deleted as deleted-->
+        <!--from t_line tl-->
+        <!--where deleted=0-->
+        <!--and (full_name like concat(concat('%',#{key}),'%')-->
+        <!--or first_stop like concat(concat('%',#{key}),'%')-->
+        <!--or last_stop like concat(concat('%',#{key}),'%'))-->
+    <!--</select>-->
+
+    <select id="listByKey" resultType="com.voidking.pandawork.entity.Line">
+        <bind name="pattern" value="'%' + _parameter.key + '%'" />
+        select
+        tl.id as id,
+        tl.bus_name as busName,
+        tl.full_name as fullName,
+        tl.first_stop as firstStop,
+        tl.last_stop as lastStop,
+        tl.deleted as deleted
+        from t_line tl
+        where deleted=0
+        and (full_name like #{pattern}
+        or first_stop like #{pattern}
+        or last_stop like #{pattern})
+    </select>
+
+    <select id="countLine" resultType="int">
+        select count(*)
+        from t_line
+        where deleted=0
+    </select>
+
+</mapper>
